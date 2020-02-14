@@ -1,0 +1,62 @@
+{
+  "name": "cat-ears-ms-manage-your-debts",
+  "version": "1.0.0",
+  "description": "The service for driving the manage-your-debts service",
+  "main": "src/app.js",
+  "scripts": {
+    "clean": "rm -rf out/ && rm -rf src/js/",
+    "build": "npm run clean && npm run build:ts",
+    "build:ts": "tsc --build src/tsconfig.json",
+    "quality:eslint": "eslint .",
+    "quality:eslint:fix": "eslint . --fix",
+    "regenerate-certs": "openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj '/CN=localhost' -keyout test/spec/helpers/certs/localhost-privkey.pem -out test/spec/helpers/certs/localhost-cert.pem",
+    "security:vulnerable-packages": "npm audit --registry=https://registry.npmjs.org --json",
+    "start": "node src/app.js",
+    "test": "npm run test:js && npm run test:ts",
+    "test:js": "NODE_ENV=test nyc --all mocha --config test/.mocharc.js",
+    "test:ts": "NODE_ENV=test nyc --include src/**/*.ts mocha --config test/.ts.mocharc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hack-the-North-4-0/cat-ears-ms-manage-your-debts.git"
+  },
+  "keywords": [
+    "debts",
+    "payments",
+    "manage-your-debts",
+    "hack-the-north"
+  ],
+  "author": "Jayne Doe <jayne.doe@engineering.digital.dwp.gov.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hack-the-North-4-0/cat-ears-ms-manage-your-debts/issues"
+  },
+  "homepage": "https://github.com/Hack-the-North-4-0/cat-ears-ms-manage-your-debts#readme",
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "config": "^3.2.5",
+    "moment": "^2.24.0",
+    "restify": "^8.5.1",
+    "restify-errors": "^8.0.2",
+    "typescript": "^3.7.5",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@dwp/eslint-config-base": "^4.1.0",
+    "@dwp/eslint-config-mocha": "^1.0.0",
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^7.0.1",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "clear-require": "^3.0.0",
+    "eslint": "^6.8.0",
+    "import-fresh": "^3.2.1",
+    "mocha": "^7.0.1",
+    "mock-require": "^3.0.3",
+    "nyc": "^15.0.0",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0",
+    "ts-node": "^8.6.2"
+  }
+}
