@@ -1,6 +1,6 @@
 const config = require('config');
 
-const postgresDebtor = require('../../js/debtor/postgres_debtor').PostgresDebtor;
+// const postgresDebtor = require('../../js/debtor/postgres_debtor').PostgresDebtor;
 const memoryDebtor = require('../../js/debtor/memory_debtor').MemoryDebtor;
 const logger = require('../logger').bunyanLogger();
 
@@ -10,13 +10,13 @@ const resolveDebtor = () => {
   let debtoree;
   if (config.get('app.source') === 'postgres') {
     logger.info('Hosting debts with Postgres');
-    debtoree = postgresDebtor.prototype;
-  } else if (config.get('app.source') === 'file') {
+    // debtoree = postgresDebtor.prototype;
+  } else if (config.get('app.source') === 'memory') {
     logger.info('Hosting debts in memory');
-    debtoree = memoryDebtor.prototype;
+    debtoree = new memoryDebtor();
   } else {
     logger.warn('Unable to host debts. Hosting in memory.');
-    debtoree = memoryDebtor.prototype;
+    debtoree = new memoryDebtor();
   }
   return debtoree;
 };
