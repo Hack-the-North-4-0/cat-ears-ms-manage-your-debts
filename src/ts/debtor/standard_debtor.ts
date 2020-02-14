@@ -15,4 +15,6 @@ export abstract class StandardDebtor {
   async abstract getPaymentsMadeOnDebt(accountId: string, debtId: string): Promise<Array<TransactionDetails>>;
 
   async abstract getInterestPaidOnDebt(accountId: string, debtId: string): Promise<Array<InterestPayments>>;
+
+  async abstract makePaymentOnDebt(accountId: string, debtId: string, amountToPay: number): Promise<Account>;
 }

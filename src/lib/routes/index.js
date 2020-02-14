@@ -7,6 +7,8 @@ const viewOneDebtOnAccountRoute = require('./get_one_debt_from_account');
 const viewPaymentsOnDebtRoute = require('./get_payments_made_on_debt');
 const viewInterestOnDebtRoute = require('./get_interest_made_on_debt');
 
+const makePaymentOnDebt = require('./make_payment_on_debt');
+
 /*
 G /accounts/:accountId/debts -- View all debts associated with a person
 G /accounts/:accountId/payments -- View the payment history of a person
@@ -26,5 +28,7 @@ module.exports = (server) => {
   viewOneDebtOnAccountRoute(server);
   viewPaymentsOnDebtRoute(server);
   viewInterestOnDebtRoute(server);
+
+  makePaymentOnDebt(server);
   return server;
 };

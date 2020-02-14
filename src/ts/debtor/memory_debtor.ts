@@ -4,6 +4,8 @@ import {StandardDebtor} from './standard_debtor';
 import {TransactionDetails} from '../objects/transaction_details';
 import {InterestPayments} from '../objects/interest_payment';
 
+const moment = require('moment');
+
 export class MemoryDebtor extends StandardDebtor {
   private readonly accounts: Array<Account>;
 
@@ -92,5 +94,17 @@ export class MemoryDebtor extends StandardDebtor {
   async getPaymentsMadeOnDebt(accountId: string, debtId: string): Promise<Array<TransactionDetails>> {
     const account = await this.getAccountOfId(accountId);
     return (await this.getDebtOfId(debtId, account.debts)).payments;
+  }
+
+  async makePaymentOnDebt(accountId: string, debtId: string, amountToPay: number): Promise<Account> {
+    const account = await this.getAccountOfId(accountId);
+    const debt = await this.getDebtOfId(debtId, account.debts);
+    account.liquid_assets -= amountToPay;
+    debt.payments.push({
+      date: moment().format('YYYY-MM-DD hh:mm:dd.zzz'),
+      amount: amountToPay,
+    });
+    debt.remaining -= amountToPay;
+    return account;
   }
 }
