@@ -17,4 +17,9 @@ export abstract class StandardDebtor {
   async abstract getInterestPaidOnDebt(accountId: string, debtId: string): Promise<Array<InterestPayments>>;
 
   async abstract makePaymentOnDebt(accountId: string, debtId: string, amountToPay: number): Promise<Account>;
+
+  // ADMIN
+  async abstract pushNewDebt(accountId: string, debt: Debt): Promise<Account>;
+
+  async abstract tickInterest(accountId: string, debtId: string): Promise<Debt>;
 }

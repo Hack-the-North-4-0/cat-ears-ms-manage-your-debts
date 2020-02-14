@@ -108,4 +108,25 @@ export class MemoryDebtor extends StandardDebtor {
     debt.remaining -= amountToPay;
     return account;
   }
+
+  async pushNewDebt(accountId: string, debt: Debt): Promise<Account> {
+    const account = await this.getAccountOfId(accountId);
+    account.debts.push(debt);
+    return account;
+  }
+
+  async tickInterest(accountId: string, debtId: string): Promise<Debt> {
+    const account = await this.getAccountOfId(accountId);
+    const debt = await this.getDebtOfId(debtId, account.debts);
+    const increase = debt.remaining * debt.interest;
+    const interestMade = {
+      date: moment().format('YYYY-MM-DD hh:mm:dd.zzz'),
+      amount: increase,
+      initial_amount: debt.remaining,
+      interest_at_time: debt.interest,
+    };
+    debt.remaining += increase;
+    debt.interest_additions.push(interestMade);
+    return debt;
+  }
 }

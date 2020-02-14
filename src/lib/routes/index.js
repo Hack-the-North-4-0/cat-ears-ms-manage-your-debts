@@ -1,5 +1,9 @@
 const actuatorRoutes = require('./actuators');
 
+// ADMIN ROUTES
+const adminPushDebt = require('./admin_push_debt_on_account');
+
+// USER ROUTES
 const viewAccountDetailsRoute = require('./get_account_details');
 const viewIncomeForAccountRotue = require('./get_income_for_account');
 const viewDebtsOnAccountRoute = require('./get_debts_for_account');
@@ -22,6 +26,10 @@ Po /debts/:debtId -- Pay one debt
 module.exports = (server) => {
   actuatorRoutes(server);
 
+  // ADMIN ROUTES
+  adminPushDebt(server);
+
+  // USER ROUTES
   viewAccountDetailsRoute(server);
   viewIncomeForAccountRotue(server);
   viewDebtsOnAccountRoute(server);
