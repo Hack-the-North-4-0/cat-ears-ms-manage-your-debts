@@ -15,22 +15,13 @@ const findAccountDetails = async (req, res, next) => {
   }
 };
 
-const reduceAccountDetails = async (req, res, next) => {
-  res.locals.reducedAcct = {
-    ...res.locals.account,
-    debts: undefined,
-    income: undefined,
-  };
-  next();
-};
-
 const renderResponse = (req, res, next) => {
   res.contentType = 'application/json';
   res.header('content-type', 'application/json');
-  res.send(200, res.locals.reducedAcct);
+  res.send(200, res.locals.account);
   next();
 };
 
 module.exports = (server) => {
-  server.get('/accounts/:accountId', findAccountDetails, reduceAccountDetails, renderResponse);
+  server.get('/accounts/:accountId', findAccountDetails, renderResponse);
 };
