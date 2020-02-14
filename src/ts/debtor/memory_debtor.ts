@@ -1,6 +1,8 @@
 import {Account} from '../objects/account';
 import {Debt} from '../objects/debt';
 import {StandardDebtor} from './standard_debtor';
+import {TransactionDetails} from '../objects/transaction_details';
+import {InterestPayments} from '../objects/interest_payment';
 
 export class MemoryDebtor extends StandardDebtor {
   private readonly accounts: Array<Account>;
@@ -12,7 +14,12 @@ export class MemoryDebtor extends StandardDebtor {
         account_id: '1234567890',
         name: 'Joe Bloggs',
         liquid_assets: 129.92,
-        income: [],
+        income: [
+          {
+            date: "2020-01-01 00:00:00.000 UTC",
+            amount: 1000.00,
+          }
+        ],
         debts: [
           {
             debt_id: '1111',
@@ -22,7 +29,20 @@ export class MemoryDebtor extends StandardDebtor {
             score: 72,
             initial_total: 12000.00,
             remaining: 3894.33,
-            payments: [],
+            payments: [
+              {
+                amount: 250.00,
+                date: "2020-01-01 12:00:00.000 UTC",
+              }
+            ],
+            interest_additions: [
+              {
+                amount: 100.00,
+                date: "2020-01-05 00:00:00.000 UTC",
+                initial_amount: 3794.33,
+                interest_at_time: 1.76,
+              },
+            ],
           }
         ],
       }
@@ -51,6 +71,10 @@ export class MemoryDebtor extends StandardDebtor {
     return this.getAccountOfId(accountId);
   }
 
+  async getIncomeForAccount(accountId: string): Promise<Array<TransactionDetails>> {
+    return (await this.getAccountOfId(accountId)).income;
+  }
+
   async getDebtsForAccount(accountId: string): Promise<Array<Debt>> {
     return (await this.getAccountOfId(accountId)).debts;
   }
@@ -58,5 +82,15 @@ export class MemoryDebtor extends StandardDebtor {
   async getOneDebtFromAccount(accountId: string, debtId: string): Promise<Debt> {
     const account = await this.getAccountOfId(accountId);
     return this.getDebtOfId(debtId, account.debts);
+  }
+
+  async getInterestPaidOnDebt(accountId: string, debtId: string): Promise<Array<InterestPayments>> {
+    const account = await this.getAccountOfId(accountId);
+    return (await this.getDebtOfId(debtId, account.debts)).interest_additions;
+  }
+
+  async getPaymentsMadeOnDebt(accountId: string, debtId: string): Promise<Array<TransactionDetails>> {
+    const account = await this.getAccountOfId(accountId);
+    return (await this.getDebtOfId(debtId, account.debts)).payments;
   }
 }
