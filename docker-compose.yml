@@ -1,6 +1,6 @@
 version: '3'
 services:
-  sft-action-marketplace:
+  ms-manage-your-debts:
     build:
       dockerfile: Dockerfile
       context: .

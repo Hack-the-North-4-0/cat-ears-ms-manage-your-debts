@@ -17,7 +17,6 @@ FROM nexus.nonprod.dwpcloud.uk:8082/library/node:12-alpine as stage
 WORKDIR /usr/src/app
 COPY --from=install /usr/src/app/node_modules/   node_modules/
 COPY --from=compile /usr/src/app/config/         config/
-COPY --from=compile /usr/src/app/out/            out/
 COPY --from=compile /usr/src/app/src/            src/
 COPY --from=compile /usr/src/app/package*.json   ./
 
