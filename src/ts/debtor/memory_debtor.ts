@@ -18,7 +18,7 @@ export class MemoryDebtor extends StandardDebtor {
         liquid_assets: 129.92,
         income: [
           {
-            date: "2020-01-01 00:00:00.000 UTC",
+            date: moment().format('YYYY-MM-DD hh:mm:dd.zzz'),
             amount: 1000.00,
           }
         ],
@@ -29,18 +29,19 @@ export class MemoryDebtor extends StandardDebtor {
             creditor: 'Halifax',
             type: 'Mortgage',
             score: 72,
+            interest: 1.76,
             initial_total: 12000.00,
             remaining: 3894.33,
             payments: [
               {
                 amount: 250.00,
-                date: "2020-01-01 12:00:00.000 UTC",
+                date: moment().format('YYYY-MM-DD hh:mm:dd.zzz'),
               }
             ],
             interest_additions: [
               {
                 amount: 100.00,
-                date: "2020-01-05 00:00:00.000 UTC",
+                date: moment().format('YYYY-MM-DD hh:mm:dd.zzz'),
                 initial_amount: 3794.33,
                 interest_at_time: 1.76,
               },

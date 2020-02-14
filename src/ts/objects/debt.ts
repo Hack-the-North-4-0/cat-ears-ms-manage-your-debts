@@ -6,6 +6,7 @@ export interface Debt {
   creditor: string,
   type: string,
   secured: boolean,
+  interest: number,
   score: number,
   initial_total: number,
   remaining: number,
