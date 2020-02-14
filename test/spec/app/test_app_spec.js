@@ -23,7 +23,7 @@ describe('the application on http/s', function () {
 
     it('should be reachable through HTTP', function (done) {
       request(testRequire(appLocation))
-        .get('/')
+        .get('/actuators/health')
         .then((response) => {
           expect(response).to.have.status(200);
           expect(response).to.be.json;

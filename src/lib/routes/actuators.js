@@ -6,5 +6,5 @@ const renderResponse = (req, res, next) => {
 };
 
 module.exports = (server) => {
-  server.get('/', renderResponse);
+  server.get('/actuators/health', renderResponse);
 };
