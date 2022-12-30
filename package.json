@@ -52,7 +52,7 @@
     "clear-require": "^3.0.0",
     "eslint": "^6.8.0",
     "import-fresh": "^3.2.1",
-    "mocha": "^7.0.1",
+    "mocha": "^10.2.0",
     "mock-require": "^3.0.3",
     "nyc": "^15.0.0",
     "sinon": "^8.1.1",
